@@ -27,21 +27,43 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 # Hovedbiblioteket
 add_library(NativePythonCore SHARED src/library.cpp)
 
-# Opprett testkatalogen hvis den ikke eksisterer
+# Konfigurer eksport-makroer for Windows
+if(WIN32)
+    target_compile_definitions(NativePythonCore
+            PRIVATE NATIVEPYTHONCORE_EXPORTS
+            PUBLIC NATIVEPYTHONCORE_IMPORTS
+    )
+endif()
+
+# Opprett testkatalogen
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
-# Legg til testkatalogen
+# Aktiver testing
 enable_testing()
 
-# Opprett test executable
+# Test executable
 add_executable(unit_tests tests/test_dummy.cpp)
 
-# Koble test executable mot Boost Test og hovedbiblioteket
-target_link_libraries(unit_tests 
-    PRIVATE 
-    Boost::unit_test_framework
-    NativePythonCore
+# Sett output-katalog for tester på Windows
+if(WIN32)
+    set_target_properties(unit_tests PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+            RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}
+            RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+    )
+endif()
+
+# Koble mot biblioteker
+target_link_libraries(unit_tests
+        PRIVATE
+        Boost::unit_test_framework
+        NativePythonCore
 )
 
-# Legg til testen i CTest
-add_test(NAME unit_tests COMMAND unit_tests)
+# Legg til test
+add_test(NAME unit_tests
+        COMMAND unit_tests
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+
+
