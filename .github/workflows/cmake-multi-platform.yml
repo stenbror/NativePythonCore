@@ -47,29 +47,28 @@ jobs:
         if: matrix.config.os == 'windows-latest'
         uses: microsoft/setup-msbuild@v1.3.1
 
-      - name: Setup vcpkg (Windows)
+      - name: Install vcpkg
         if: matrix.config.os == 'windows-latest'
-        uses: lukka/run-vcpkg@v7
-        with:
-          vcpkgGitCommitId: ${{ env.VCPKG_COMMIT }}
-          setupOnly: true
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git
+          .\vcpkg\bootstrap-vcpkg.bat
+          .\vcpkg\vcpkg integrate install
 
-      - name: Cache vcpkg (Windows)
+      - name: Cache vcpkg
         if: matrix.config.os == 'windows-latest'
         uses: actions/cache@v4
         with:
           path: |
-            ${{ github.workspace }}/vcpkg
-            !${{ github.workspace }}/vcpkg/buildtrees
-            !${{ github.workspace }}/vcpkg/packages
-            !${{ github.workspace }}/vcpkg/downloads
-          key: vcpkg-${{ runner.os }}-${{ hashFiles('vcpkg.json') }}
+            C:\Users\runneradmin\AppData\Local\vcpkg
+            C:\Users\runneradmin\.cache\vcpkg
+          key: windows-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+          restore-keys: windows-vcpkg-
 
       - name: Install Boost (Windows)
         if: matrix.config.os == 'windows-latest'
         run: |
-          vcpkg install boost-test:x64-windows
-          vcpkg integrate install
+          .\vcpkg\vcpkg install boost-test:x64-windows
+          echo "VCPKG_ROOT=$env:GITHUB_WORKSPACE\vcpkg" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       # macOS-specific setup
       - name: Install Boost (macOS)
@@ -97,11 +96,11 @@ jobs:
         shell: pwsh
         working-directory: ${{ github.workspace }}/build
         run: |
-          cmake ${{ github.workspace }} `
-                -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} `
-                -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" `
-                -DCMAKE_PREFIX_PATH="$env:VCPKG_ROOT/installed/x64-windows" `
-                -DBoost_DIR="$env:VCPKG_ROOT/installed/x64-windows/share/boost"
+          cmake .. `
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} `
+            -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" `
+            -DVCPKG_TARGET_TRIPLET=x64-windows `
+            -A x64
 
       - name: Configure CMake (Unix)
         if: matrix.config.os != 'windows-latest'
@@ -112,47 +111,14 @@ jobs:
                 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
                 -DCMAKE_C_COMPILER=${{ matrix.config.cc }} \
                 -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }} \
-                -DBOOST_ROOT=${{ env.BOOST_ROOT }} \
-                -DBoost_NO_SYSTEM_PATHS=ON
+                -DBOOST_ROOT=${{ env.BOOST_ROOT }}
 
       # Build
       - name: Build
         working-directory: ${{ github.workspace }}/build
-        shell: bash
         run: cmake --build . --config ${{ matrix.build_type }}
 
       # Test
-      - name: Test (Windows)
-        if: matrix.config.os == 'windows-latest'
+      - name: Test
         working-directory: ${{ github.workspace }}/build
-        shell: pwsh
-        run: |
-          $env:PATH = "$env:VCPKG_ROOT\installed\x64-windows\bin;$env:PATH"
-          ctest -C ${{ matrix.build_type }} --output-on-failure --verbose
-
-      - name: Test (Unix)
-        if: matrix.config.os != 'windows-latest'
-        working-directory: ${{ github.workspace }}/build
-        shell: bash
-        run: |
-          ctest -C ${{ matrix.build_type }} --output-on-failure --verbose
-
-      # Upload artifacts on failure
-      - name: Upload Test Results
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.config.name }}-${{ matrix.build_type }}
-          path: |
-            ${{ github.workspace }}/build/Testing/Temporary/LastTest.log
-            ${{ github.workspace }}/build/Testing/Temporary/LastTestsFailed.log
-
-      - name: Upload CMake Logs
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cmake-logs-${{ matrix.config.name }}-${{ matrix.build_type }}
-          path: |
-            ${{ github.workspace }}/build/CMakeFiles/CMakeOutput.log
-            ${{ github.workspace }}/build/CMakeFiles/CMakeError.log
-            ${{ github.workspace }}/build/CMakeCache.txt
+        run: ctest -C ${{ matrix.build_type }} --output-on-failure --verbose
