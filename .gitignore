@@ -1,0 +1,64 @@
+# Build-mapper
+/build/
+/cmake-build-*/
+/out/
+
+# IDE-spesifikke filer (CLion)
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# Kompilerte filer
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# CMake-genererte filer
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+_deps/
+
+# Dependency directories
+/vcpkg/
+/conan/
+
+# OS-genererte filer
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Debug-filer
+*.pdb
+*.ilk
+*.exp
+
+# Temporære filer
+*.swp
+*~
+*.tmp
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Boost
+/boost/
+/boost_*/
+
+# Prosjekt-spesifikke binærfiler
+/bin/
