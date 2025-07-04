@@ -38,6 +38,11 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 # Hovedbiblioteket
 add_library(NativePythonCore SHARED src/library.cpp)
 
+target_include_directories(NativePythonCore
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
 if(MSVC)
     # Sett spesifikke egenskaper for MSVC
     set_target_properties(NativePythonCore PROPERTIES
