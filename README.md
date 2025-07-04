@@ -7,7 +7,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 ```
     mkdir -p build
     cd build
-    cmake ..
+    cmake -G Ninja ..
     ctest
 ```
 
