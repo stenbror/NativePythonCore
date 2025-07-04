@@ -1,14 +1,27 @@
-cmake_minimum_required(VERSION 3.31.6)
+cmake_minimum_required(VERSION 3.10)
 
-if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+cmake_policy(SET CMP0167 NEW)
+
+project(Test)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Boost configuration
+if(WIN32)
+    set(Boost_USE_STATIC_LIBS OFF)
+    set(Boost_USE_MULTITHREADED ON)
+    set(Boost_USE_STATIC_RUNTIME OFF)
+
+    # Allow for VCPKG toolchain file
+    if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+        set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                CACHE STRING "")
+    endif()
 endif()
 
-project(NativePythonCore)
 
-set(CMAKE_CXX_STANDARD 26)
-
-# Finn Boost-pakken med nødvendige komponenter
+# Find Boost package with unit_test_framework component
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 
 # Hovedbiblioteket
