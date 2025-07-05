@@ -36,7 +36,9 @@ endif()
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 
 # Hovedbiblioteket
-add_library(NativePythonCore SHARED src/library.cpp)
+add_library(NativePythonCore SHARED src/library.cpp
+        src/parser/Symbol.cpp
+        src/parser/Symbol.h)
 
 target_include_directories(NativePythonCore
         PUBLIC
