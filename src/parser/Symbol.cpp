@@ -126,12 +126,14 @@ std::vector<std::shared_ptr<Trivia>> Symbol::GetTrailer() {
 // Literal symbol class methods and constructor ////////////////////////////////////////////////////////////////////////
 LiteralSymbol::LiteralSymbol(
         SymbolType symbol,
-        unsigned long line,
-        unsigned long column,
-        unsigned long start_index,
-        unsigned long end_index,
-        std::basic_string<char8_t> value)
-            : Symbol(symbol, line, column, start_index, end_index) {
+        const unsigned long line,
+        const unsigned long column,
+        const unsigned long start_index,
+        const unsigned long end_index,
+        std::basic_string<char8_t> value,
+        std::vector<std::shared_ptr<Trivia>> prefix,
+        std::vector<std::shared_ptr<Trivia>> trailer)
+            : Symbol(symbol, line, column, start_index, end_index, std::move(prefix), std::move(trailer)) {
     m_value = std::move(value);
 }
 

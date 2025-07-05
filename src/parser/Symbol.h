@@ -10,7 +10,7 @@
 #include <string>
 
 // Enum token for each symbol type
-enum class SymbolType {
+enum SymbolType {
     kw_eof,
     kw_newline,
     kw_indent,
@@ -169,7 +169,14 @@ class Symbol {
     std::vector<std::shared_ptr<Trivia>> m_trailer;
 
 public:
-    Symbol(SymbolType symbol, unsigned long line, unsigned long column, unsigned long start_index, unsigned long end_index, std::vector<std::shared_ptr<Trivia>> prefix = {}, std::vector<std::shared_ptr<Trivia>> trailer = {});
+    Symbol(
+        SymbolType symbol,
+        unsigned long line,
+        unsigned long column,
+        unsigned long start_index,
+        unsigned long end_index,
+        std::vector<std::shared_ptr<Trivia>> prefix,
+        std::vector<std::shared_ptr<Trivia>> trailer);
 
     [[nodiscard]] SymbolType GetSymbolKind() const;
     [[nodiscard]] unsigned long GetLine() const;
@@ -185,7 +192,15 @@ class LiteralSymbol : public Symbol {
     std::basic_string<char8_t> m_value;
 
 public:
-    LiteralSymbol(SymbolType symbol, unsigned long line, unsigned long column, unsigned long start_index, unsigned long end_index, std::basic_string<char8_t> value);
+    LiteralSymbol(
+        SymbolType symbol,
+        unsigned long line,
+        unsigned long column,
+        unsigned long start_index,
+        unsigned long end_index,
+        std::basic_string<char8_t> value,
+        std::vector<std::shared_ptr<Trivia>> prefix,
+        std::vector<std::shared_ptr<Trivia>> trailer);
 
     std::basic_string<char8_t> GetValue();
 };
