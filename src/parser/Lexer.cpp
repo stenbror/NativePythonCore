@@ -198,6 +198,52 @@ void Lexer::CollectSymbols()
                 }
                 break;
             }
+            case '&': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_bit_and_assign;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_bit_and;
+                }
+                break;
+            }
+            case '|': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_bit_or_assign;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_bit_or;
+                }
+                break;
+            }
+            case '^': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_bit_xor_assign;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_bit_xor;
+                }
+                break;
+            }
+
 
             default:
                 break;

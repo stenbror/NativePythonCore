@@ -221,4 +221,70 @@ BOOST_AUTO_TEST_CASE(test_operator_matrice) {
     BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_bit_and_assign) {
+    auto lex = new Lexer(u8"&=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_and_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_bit_and) {
+    auto lex = new Lexer(u8"&", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_and);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_bit_or_assign) {
+    auto lex = new Lexer(u8"|=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_or_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_bit_or) {
+    auto lex = new Lexer(u8"|", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_or);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_bit_xor_assign) {
+    auto lex = new Lexer(u8"^=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_xor_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_bit_xor) {
+    auto lex = new Lexer(u8"^", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_xor);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
