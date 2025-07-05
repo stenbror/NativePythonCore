@@ -441,4 +441,37 @@ BOOST_AUTO_TEST_CASE(test_operator_bang) {
     BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_bit_not) {
+    auto lex = new Lexer(u8"~", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_bit_not);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_comma) {
+    auto lex = new Lexer(u8",", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_comma);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_semicolon) {
+    auto lex = new Lexer(u8";", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_semicolon);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

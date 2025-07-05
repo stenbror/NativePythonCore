@@ -346,6 +346,28 @@ void Lexer::CollectSymbols()
                 }
                 break;
             }
+            case '~': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_bit_not;
+                break;
+            }
+            case ',': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_comma;
+                break;
+            }
+            case ';': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_semicolon;
+                break;
+            }
+
 
 
             default:
