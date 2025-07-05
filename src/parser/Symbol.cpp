@@ -6,6 +6,14 @@
 
 #include <utility>
 
+using NativePythonCore::Parser::SymbolType;
+using NativePythonCore::Parser::Trivia;
+using NativePythonCore::Parser::NewlineTrivia;
+using NativePythonCore::Parser::CommentTrivia;
+using NativePythonCore::Parser::WhitespaceTrivia;
+using NativePythonCore::Parser::Symbol;
+using NativePythonCore::Parser::LiteralSymbol;
+
 // Base class for Trivia structure /////////////////////////////////////////////////////////////////////////////////////
 Trivia::Trivia(unsigned long start_index, unsigned long end_index) {
     m_start_index = start_index;

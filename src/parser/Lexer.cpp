@@ -3,3 +3,7 @@
 //
 
 #include "Lexer.h"
+
+
+using NativePythonCore::Parser::Lexer;
+

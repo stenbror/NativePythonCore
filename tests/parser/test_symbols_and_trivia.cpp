@@ -5,6 +5,14 @@
 #include <boost/test/unit_test.hpp>
 #include <parser/Symbol.h>
 
+using NativePythonCore::Parser::SymbolType;
+using NativePythonCore::Parser::Trivia;
+using NativePythonCore::Parser::NewlineTrivia;
+using NativePythonCore::Parser::CommentTrivia;
+using NativePythonCore::Parser::WhitespaceTrivia;
+using NativePythonCore::Parser::Symbol;
+using NativePythonCore::Parser::LiteralSymbol;
+
 BOOST_AUTO_TEST_SUITE(symbols_and_trivia_tests)
 
 // Test newline Trivia /////////////////////////////////////////////////////////////////////////////////////////////////

@@ -5,12 +5,13 @@
 #ifndef LEXER_H
 #define LEXER_H
 
+namespace NativePythonCore::Parser
+{
 
+    class Lexer {
 
-class Lexer {
+    };
 
-};
-
-
+}
 
 #endif //LEXER_H
