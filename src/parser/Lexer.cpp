@@ -139,6 +139,36 @@ void Lexer::CollectSymbols()
                 }
                 break;
             }
+            case '/': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '/') {
+                    it = next;
+                    if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                        it = next;
+                        m_end_index = it - m_source_code.cbegin();
+                        move_index = 3;
+                        symbol = SymbolType::kw_slash_slash_assign;
+                    }
+                    else {
+                        m_end_index = it - m_source_code.cbegin();
+                        move_index = 2;
+                        symbol = SymbolType::kw_slash_slash;
+                    }
+                }
+                else if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_slash_assign;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_slash;
+                }
+                break;
+            }
+
             default:
                 break;
         }

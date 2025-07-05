@@ -133,4 +133,48 @@ BOOST_AUTO_TEST_CASE(test_operator_star) {
     BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_slash_slash_assign) {
+    const auto lex = new Lexer(u8"//=", 8);
+    const auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_slash_slash_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 3);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_slash_slash) {
+    const auto lex = new Lexer(u8"//", 8);
+    const auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_slash_slash);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_slash_assign) {
+    const auto lex = new Lexer(u8"/=", 8);
+    const auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_slash_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_slash) {
+    const auto lex = new Lexer(u8"/", 8);
+    const auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_slash);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
