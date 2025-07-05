@@ -375,4 +375,48 @@ BOOST_AUTO_TEST_CASE(test_operator_greater) {
     BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_equal) {
+    auto lex = new Lexer(u8"==", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_equal);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_assign) {
+    auto lex = new Lexer(u8"=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_colon_assign) {
+    auto lex = new Lexer(u8":=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_colon_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_colon) {
+    auto lex = new Lexer(u8":", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_colon);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
