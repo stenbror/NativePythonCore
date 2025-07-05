@@ -391,6 +391,33 @@ void Lexer::CollectSymbols()
                 m_Parenthesis_stack.push('}');
                 break;
             }
+            case ')': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                if (m_Parenthesis_stack.top() != ')') throw ;
+                m_Parenthesis_stack.pop();
+                symbol = SymbolType::kw_end_parenthesis;
+                break;
+            }
+            case ']': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                if (m_Parenthesis_stack.top() != ']') throw ;
+                m_Parenthesis_stack.pop();
+                symbol = SymbolType::kw_end_bracket;
+                break;
+            }
+            case '}': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                if (m_Parenthesis_stack.top() != '}') throw ;
+                m_Parenthesis_stack.pop();
+                symbol = SymbolType::kw_end_brace;
+                break;
+            }
 
 
 

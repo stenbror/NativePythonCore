@@ -507,4 +507,40 @@ BOOST_AUTO_TEST_CASE(test_operator_start_brace) {
     BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_end_parenthesis) {
+    auto lex = new Lexer(u8"()", 8);
+    auto symbol_dummy = lex->GetNextSymbol();
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_end_parenthesis);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 2);
+    BOOST_TEST(symbol->GetStartIndex() == 1);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_end_bracket) {
+    auto lex = new Lexer(u8"[]", 8);
+    auto symbol_dummy = lex->GetNextSymbol();
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_end_bracket);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 2);
+    BOOST_TEST(symbol->GetStartIndex() == 1);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_end_brace) {
+    auto lex = new Lexer(u8"{}", 8);
+    auto symbol_dummy = lex->GetNextSymbol();
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_end_brace);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 2);
+    BOOST_TEST(symbol->GetStartIndex() == 1);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
