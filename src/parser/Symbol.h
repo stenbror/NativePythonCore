@@ -138,6 +138,26 @@ public:
     std::basic_string<char8_t> GetComment();
 };
 
+// Whitespace trivia structure
+class WhitespaceTrivia : public Trivia {
+public:
+    enum class WhitespaceType {
+        Tabulator,
+        LineContinuation,
+        Space
+    };
+
+private:
+    WhitespaceType m_type;
+
+public:
+    WhitespaceTrivia(unsigned long start_index, unsigned long end_index, WhitespaceType type);
+
+    [[nodiscard]] bool IsTabulator() const;
+    [[nodiscard]] bool IsLineContinuation() const;
+    [[nodiscard]] bool IsSpace() const;
+};
+
 // Symbol data structure
 class Symbol {
     SymbolType m_symbol;

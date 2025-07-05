@@ -54,6 +54,28 @@ std::basic_string<char8_t> CommentTrivia::GetComment() {
     return m_comment;
 }
 
+// Whitespace trivia methods ///////////////////////////////////////////////////////////////////////////////////////////
+WhitespaceTrivia::WhitespaceTrivia(
+        unsigned long start_index,
+        unsigned long end_index,
+        const WhitespaceType type)
+            : Trivia(start_index, end_index) {
+
+    m_type = type;
+}
+
+bool WhitespaceTrivia::IsTabulator() const {
+    return m_type == WhitespaceType::Tabulator;
+}
+
+bool WhitespaceTrivia::IsLineContinuation() const {
+    return m_type == WhitespaceType::LineContinuation;
+}
+
+bool WhitespaceTrivia::IsSpace() const {
+    return m_type == WhitespaceType::Space;
+}
+
 // Base symbol class methods and constructors //////////////////////////////////////////////////////////////////////////
 Symbol::Symbol(
         SymbolType symbol,
