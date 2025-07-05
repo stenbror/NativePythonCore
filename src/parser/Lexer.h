@@ -7,6 +7,7 @@
 #include <map>
 #include <stack>
 #include <vector>
+#include <iterator>
 
 #include "Symbol.h"
 
@@ -66,8 +67,9 @@ namespace NativePythonCore::Parser
 
         struct UTF8Result {
             char32_t codepoint;
-            size_t bytes_consumed;
+            std::basic_string<char8_t>::const_iterator next;
         };
+
 
     public:
         Lexer(std::basic_string<char8_t> source_code, unsigned long tab_size);
@@ -81,11 +83,16 @@ namespace NativePythonCore::Parser
         void CollectSymbols();
 
 
-        static UTF8Result DecodeUTF8(const char8_t* ptr, size_t remaining_bytes) {
-            auto first = static_cast<unsigned char>(*ptr);
+        static UTF8Result DecodeUTF8(const std::basic_string<char8_t>::const_iterator it,
+                                const std::basic_string<char8_t>::const_iterator end) {
+            if (it == end) {
+                return {'\0', end};
+            }
+
+            auto first = static_cast<unsigned char>(*it);
 
             if (first < 0x80) {
-                return {static_cast<char32_t>(first), 1};
+                return {static_cast<char32_t>(first), std::next(it)};
             }
 
             int length;
@@ -107,25 +114,28 @@ namespace NativePythonCore::Parser
                 throw std::runtime_error("Ugyldig UTF-8 startbyte");
             }
 
-            if (remaining_bytes < static_cast<size_t>(length)) {
+            auto remaining = std::distance(it, end);
+            if (remaining < length) {
                 throw std::runtime_error("Ufullstendig UTF-8 sekvens");
             }
 
+            auto current = std::next(it);
             for (int i = 1; i < length; ++i) {
-                auto byte = static_cast<unsigned char>(ptr[i]);
+                unsigned char byte = static_cast<unsigned char>(*current);
                 if ((byte & 0xC0) != 0x80) {
                     throw std::runtime_error("Ugyldig UTF-8 fortsettelsebyte");
                 }
                 codepoint = (codepoint << 6) | (byte & 0x3F);
+                ++current;
             }
 
-            // Valider codepoint
             if (codepoint > 0x10FFFF || (codepoint >= 0xD800 && codepoint <= 0xDFFF)) {
                 throw std::runtime_error("Ugyldig Unicode codepoint");
             }
 
-            return {codepoint, static_cast<size_t>(length)};
+            return {codepoint, current};
         }
+
 
     };
 
