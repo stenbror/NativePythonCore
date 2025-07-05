@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_SUITE(symbols_and_trivia_tests)
 BOOST_AUTO_TEST_CASE(test_newline_trivia_1)
 {
     auto newline = std::make_shared<NewlineTrivia>(0, 1, true, false);
-    
+
     BOOST_TEST(newline->GetStartIndex() == 0 );
     BOOST_TEST(newline->GetEndIndex() == 1 );
     BOOST_TEST(newline->IsCarriageReturn() == true );
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE(Test_LiteralSymbol)
     BOOST_TEST(symbol->GetStartIndex() == 0);
     BOOST_TEST(symbol->GetEndIndex() == 8);
 
-    std::string expected(reinterpret_cast<const char*>(u8"Hello World"));
+    std::string expected(reinterpret_cast<const char*>(u8"__init__"));
     std::string actual(reinterpret_cast<const char*>(symbol->GetValue().c_str()));
     BOOST_TEST(actual == expected);
 
