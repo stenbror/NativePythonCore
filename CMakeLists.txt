@@ -38,7 +38,9 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 # Hovedbiblioteket
 add_library(NativePythonCore SHARED src/library.cpp
         src/parser/Symbol.cpp
-        src/parser/Symbol.h)
+        src/parser/Symbol.h
+        src/parser/Lexer.cpp
+        src/parser/Lexer.h)
 
 target_include_directories(NativePythonCore
         PUBLIC
