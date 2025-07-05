@@ -65,7 +65,8 @@ enable_testing()
 
 # Test executable
 add_executable(unit_tests tests/test_dummy.cpp
-        tests/parser/test_symbols_and_trivia.cpp)
+        tests/parser/test_symbols_and_trivia.cpp
+        tests/parser/test_lexical_analyzer.cpp)
 
 if(MSVC)
     # Sett spesifikke egenskaper for test executable
