@@ -14,6 +14,7 @@ using NativePythonCore::Parser::CommentTrivia;
 using NativePythonCore::Parser::WhitespaceTrivia;
 using NativePythonCore::Parser::Symbol;
 using NativePythonCore::Parser::LiteralSymbol;
+using NativePythonCore::Parser::Lexer;
 
 BOOST_AUTO_TEST_SUITE(lexical_analyzer_tests)
 
@@ -31,6 +32,61 @@ BOOST_AUTO_TEST_CASE(test_lexer_empty_source_code_with_index)
 
     BOOST_TEST(lexer->GetNextSymbol(5)->GetSymbolKind() == SymbolType::kw_eof);
     BOOST_TEST(lexer->SymbolIndex() == 0);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_plus_assign) {
+    auto lex = new Lexer(u8"+=", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_plus_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_plus) {
+    auto lex = new Lexer(u8"+", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_plus);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_minus_assign) {
+    const auto lex = new Lexer(u8"-=", 8);
+    const auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_minus_assign);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_arrow) {
+    auto lex = new Lexer(u8"->", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_arrow);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 2);
+}
+
+BOOST_AUTO_TEST_CASE(test_operator_minus) {
+    auto lex = new Lexer(u8"-", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_minus);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

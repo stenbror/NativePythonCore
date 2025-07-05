@@ -5,6 +5,8 @@
 #include <boost/test/unit_test.hpp>
 #include <parser/Symbol.h>
 
+#include "parser/Lexer.h"
+
 using NativePythonCore::Parser::SymbolType;
 using NativePythonCore::Parser::Trivia;
 using NativePythonCore::Parser::NewlineTrivia;

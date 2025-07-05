@@ -17,7 +17,7 @@ Lexer::Lexer(std::basic_string<char8_t> source_code, const unsigned long tab_siz
     m_tab_size = tab_size;
     m_symbol_index = 0;
     m_line = 1;
-    m_column = 0;
+    m_column = 1;
     m_start_index = 0;
     m_end_index = 0;
     m_prefix = std::vector<std::shared_ptr<Trivia>>();
@@ -46,7 +46,7 @@ unsigned long Lexer::SymbolIndex() const
 void Lexer::Reset() {
     m_symbol_index = 0;
     m_line = 1;
-    m_column = 0;
+    m_column = 1;
     m_start_index = 0;
     m_end_index = 0;
     m_prefix = std::vector<std::shared_ptr<Trivia>>();
@@ -60,12 +60,70 @@ void Lexer::CollectSymbols()
     auto it = m_source_code.cbegin();
     const auto end = m_source_code.end();
 
+    SymbolType symbol = SymbolType::kw_eof;
+    unsigned long move_index = 0;
+
     while (it != end) {
 
+
+        m_start_index = it - m_source_code.cbegin(); /* Save start position for symbol */
+
         auto [codepoint, next] = DecodeUTF8(it, end);
-        it = next;
 
 
+
+
+        switch (codepoint) {
+            case '+': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_plus_assign;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_plus;
+                }
+                break;
+            }
+            case '-': {
+                it = next;
+                if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '=') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_minus_assign;
+                }
+                else if (auto [codepoint, next] = DecodeUTF8(it, end); codepoint == '>') {
+                    it = next;
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 2;
+                    symbol = SymbolType::kw_arrow;
+                }
+                else {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_minus;
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        m_symbols.push_back(
+            std::make_shared<Symbol>(
+                symbol,
+                m_line,
+                m_column,
+                m_start_index,
+                m_end_index,
+                m_prefix,
+                m_trailer));
+
+        m_column += move_index;
     }
-
 }
