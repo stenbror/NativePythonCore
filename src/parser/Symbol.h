@@ -111,8 +111,21 @@ class Trivia {
 
 public:
     Trivia(unsigned long start_index, unsigned long end_index);
+
     [[nodiscard]] unsigned long GetStartIndex() const;
     [[nodiscard]] unsigned long GetEndIndex() const;
+};
+
+// Newline trivia structure
+class NewlineTrivia : public Trivia {
+    unsigned long m_is_carriage_return;
+    unsigned long m_is_line_feed;
+
+public:
+    NewlineTrivia(unsigned long start_index, unsigned long end_index, bool is_carriage_return, bool is_line_feed);
+
+    [[nodiscard]] bool IsCarriageReturn() const;
+    [[nodiscard]] bool IsLineFeed() const;
 };
 
 // Symbol data structure

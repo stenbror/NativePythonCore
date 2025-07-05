@@ -20,6 +20,28 @@ unsigned long Trivia::GetEndIndex() const {
     return m_end_index;
 }
 
+// Newline trivia methods //////////////////////////////////////////////////////////////////////////////////////////////
+NewlineTrivia::NewlineTrivia(
+        unsigned long start_index,
+        unsigned long end_index,
+        bool is_carriage_return,
+        bool is_line_feed)
+            : Trivia(start_index, end_index) {
+
+    m_is_carriage_return = is_carriage_return;
+    m_is_line_feed = is_line_feed;
+}
+
+bool NewlineTrivia::IsCarriageReturn() const {
+    return m_is_carriage_return;
+}
+
+bool NewlineTrivia::IsLineFeed() const {
+    return m_is_line_feed;
+}
+
+
+
 // Base symbol class methods and constructors //////////////////////////////////////////////////////////////////////////
 Symbol::Symbol(
         SymbolType symbol,
@@ -30,6 +52,7 @@ Symbol::Symbol(
         std::vector<std::shared_ptr<Trivia>> prefix,
         std::vector<std::shared_ptr<Trivia>> trailer) {
 
+    m_symbol = symbol;
     m_line = line;
     m_column = column;
     m_start_index = start_index;
