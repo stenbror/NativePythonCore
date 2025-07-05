@@ -128,6 +128,16 @@ public:
     [[nodiscard]] bool IsLineFeed() const;
 };
 
+// Comment trivia structure
+class CommentTrivia : public Trivia {
+    std::basic_string<char8_t> m_comment;
+
+public:
+    CommentTrivia(unsigned long start_index, unsigned long end_index, std::basic_string<char8_t> comment);
+
+    std::basic_string<char8_t> GetComment();
+};
+
 // Symbol data structure
 class Symbol {
     SymbolType m_symbol;

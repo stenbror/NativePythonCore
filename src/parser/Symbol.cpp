@@ -40,7 +40,19 @@ bool NewlineTrivia::IsLineFeed() const {
     return m_is_line_feed;
 }
 
+// Comment trivia methods //////////////////////////////////////////////////////////////////////////////////////////////
+CommentTrivia::CommentTrivia(
+        unsigned long start_index,
+        unsigned long end_index,
+        std::basic_string<char8_t> comment)
+            : Trivia(start_index, end_index) {
 
+    m_comment = std::move(comment);
+}
+
+std::basic_string<char8_t> CommentTrivia::GetComment() {
+    return m_comment;
+}
 
 // Base symbol class methods and constructors //////////////////////////////////////////////////////////////////////////
 Symbol::Symbol(
