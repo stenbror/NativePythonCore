@@ -5,6 +5,7 @@
 #include "Lexer.h"
 
 #include <utility>
+#include <ranges>
 
 
 using NativePythonCore::Parser::Lexer;
@@ -56,5 +57,6 @@ void Lexer::Reset() {
 
 void Lexer::CollectSymbols()
 {
+
 
 }
