@@ -83,8 +83,8 @@ namespace NativePythonCore::Parser
         void CollectSymbols();
 
 
-        static UTF8Result DecodeUTF8(const std::basic_string<char8_t>::const_iterator it,
-                                const std::basic_string<char8_t>::const_iterator end) {
+        static UTF8Result DecodeUTF8(std::basic_string<char8_t>::const_iterator it,
+                                std::basic_string<char8_t>::const_iterator end) {
             if (it == end) {
                 return {'\0', end};
             }
@@ -127,6 +127,18 @@ namespace NativePythonCore::Parser
                 }
                 codepoint = (codepoint << 6) | (byte & 0x3F);
                 ++current;
+            }
+
+            if ((length == 2 && codepoint < 0x80) ||
+                (length == 3 && codepoint < 0x800) ||
+                (length == 4 && codepoint < 0x10000)) {
+                    throw std::runtime_error("Ugyldig overlong UTF-8 sekvens");
+            }
+
+            if ((length == 2 && codepoint > 0x7FF) ||
+                (length == 3 && codepoint > 0xFFFF) ||
+                (length == 4 && codepoint > 0x10FFFF)) {
+                    throw std::runtime_error("UTF-8 sekvens overskrider maksimal verdi");
             }
 
             if (codepoint > 0x10FFFF || (codepoint >= 0xD800 && codepoint <= 0xDFFF)) {

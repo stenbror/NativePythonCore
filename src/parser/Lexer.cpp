@@ -57,6 +57,15 @@ void Lexer::Reset() {
 
 void Lexer::CollectSymbols()
 {
+    auto it = m_source_code.cbegin();
+    const auto end = m_source_code.end();
 
+    while (it != end) {
+
+        auto [codepoint, next] = DecodeUTF8(it, end);
+        it = next;
+
+
+    }
 
 }
