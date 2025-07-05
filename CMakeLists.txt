@@ -62,7 +62,8 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 enable_testing()
 
 # Test executable
-add_executable(unit_tests tests/test_dummy.cpp)
+add_executable(unit_tests tests/test_dummy.cpp
+        tests/parser/test_symbols_and_trivia.cpp)
 
 if(MSVC)
     # Sett spesifikke egenskaper for test executable
