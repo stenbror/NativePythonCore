@@ -5,6 +5,10 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
+#include <vector>
+#include <memory>
+#include <string>
+
 // Enum token for each symbol type
 enum class SymbolType {
     kw_eof,
@@ -100,14 +104,38 @@ enum class SymbolType {
     kw_bit_xor_assign
 };
 
+class Trivia {};
+
 // Symbol data structure
 class Symbol {
-    SymbolType m_symbol = SymbolType::kw_eof;
+    SymbolType m_symbol;
+    unsigned long m_line;
+    unsigned long m_column;
+    unsigned long m_start_index;
+    unsigned long m_end_index;
+    std::vector<std::shared_ptr<Trivia>> m_prefix;
+    std::vector<std::shared_ptr<Trivia>> m_trailer;
+
+public:
+    Symbol(SymbolType symbol, unsigned long line, unsigned long column, unsigned long start_index, unsigned long end_index, std::vector<std::shared_ptr<Trivia>> prefix = {}, std::vector<std::shared_ptr<Trivia>> trailer = {});
+
+    SymbolType GetSymbolKind() const;
+    unsigned long GetLine() const;
+    unsigned long GetColumn() const;
+    unsigned long GetStartIndex() const;
+    unsigned long GetEndIndex() const;
+    std::vector<std::shared_ptr<Trivia>> GetPrefix();
+    std::vector<std::shared_ptr<Trivia>> GetTrailer();
 };
 
 // Extension to symbol for literals
 class LiteralSymbol : public Symbol {
+    std::basic_string<char8_t> m_value;
 
+public:
+    LiteralSymbol(SymbolType symbol, unsigned long line, unsigned long column, unsigned long start_index, unsigned long end_index, std::basic_string<char8_t> value);
+
+    std::basic_string<char8_t> GetValue();
 };
 
 #endif //SYMBOL_H
