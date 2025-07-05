@@ -367,6 +367,30 @@ void Lexer::CollectSymbols()
                 symbol = SymbolType::kw_semicolon;
                 break;
             }
+            case '(': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_start_parenthesis;
+                m_Parenthesis_stack.push(')');
+                break;
+            }
+            case '[': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_start_bracket;
+                m_Parenthesis_stack.push(']');
+                break;
+            }
+            case '{': {
+                it = next;
+                m_end_index = it - m_source_code.cbegin();
+                move_index = 1;
+                symbol = SymbolType::kw_start_brace;
+                m_Parenthesis_stack.push('}');
+                break;
+            }
 
 
 
