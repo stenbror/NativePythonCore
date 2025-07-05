@@ -104,7 +104,16 @@ enum class SymbolType {
     kw_bit_xor_assign
 };
 
-class Trivia {};
+// Base class for trivia structures
+class Trivia {
+    unsigned long m_start_index;
+    unsigned long m_end_index;
+
+public:
+    Trivia(unsigned long start_index, unsigned long end_index);
+    [[nodiscard]] unsigned long GetStartIndex() const;
+    [[nodiscard]] unsigned long GetEndIndex() const;
+};
 
 // Symbol data structure
 class Symbol {
@@ -119,11 +128,11 @@ class Symbol {
 public:
     Symbol(SymbolType symbol, unsigned long line, unsigned long column, unsigned long start_index, unsigned long end_index, std::vector<std::shared_ptr<Trivia>> prefix = {}, std::vector<std::shared_ptr<Trivia>> trailer = {});
 
-    SymbolType GetSymbolKind() const;
-    unsigned long GetLine() const;
-    unsigned long GetColumn() const;
-    unsigned long GetStartIndex() const;
-    unsigned long GetEndIndex() const;
+    [[nodiscard]] SymbolType GetSymbolKind() const;
+    [[nodiscard]] unsigned long GetLine() const;
+    [[nodiscard]] unsigned long GetColumn() const;
+    [[nodiscard]] unsigned long GetStartIndex() const;
+    [[nodiscard]] unsigned long GetEndIndex() const;
     std::vector<std::shared_ptr<Trivia>> GetPrefix();
     std::vector<std::shared_ptr<Trivia>> GetTrailer();
 };

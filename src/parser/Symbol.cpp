@@ -6,6 +6,20 @@
 
 #include <utility>
 
+// Base class for Trivia structure /////////////////////////////////////////////////////////////////////////////////////
+Trivia::Trivia(unsigned long start_index, unsigned long end_index) {
+    m_start_index = start_index;
+    m_end_index = end_index;
+}
+
+unsigned long Trivia::GetStartIndex() const {
+    return m_start_index;
+}
+
+unsigned long Trivia::GetEndIndex() const {
+    return m_end_index;
+}
+
 // Base symbol class methods and constructors //////////////////////////////////////////////////////////////////////////
 Symbol::Symbol(
         SymbolType symbol,
@@ -65,5 +79,5 @@ LiteralSymbol::LiteralSymbol(
 }
 
 std::basic_string<char8_t> LiteralSymbol::GetValue() {
-    return m_value;   
+    return m_value;
 }
