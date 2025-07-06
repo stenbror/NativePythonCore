@@ -15,10 +15,19 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 
 - Install Compiler with linker, debugger and some tools needed to get started on an empty Linux machine.
   ```
-  sudo apt-get install pkg-config autoconf clang lldb git 
+  sudo apt-get install pkg-config autoconf clang lldb git curl zip unzip tar wget
   ```
 - Download and install cmake
+  ```
+  wget https://github.com/Kitware/CMake/releases/download/v4.1.0-rc1/cmake-4.1.0-rc1-linux-x86_64.sh
+  chmod 777 cmake-4.1.0-rc1-linux-x86_64.sh
+  ```
 - Download and install ninja build system
+  ```
+  git clone https://github.com/ninja-build/ninja.git && cd ninja
+  git checkout release
+  cat README.md
+  ```
 - Download, build and install vcpkg package system for C++
   ```
   cd /home/stenbror # Use your own home directory, not mine.
