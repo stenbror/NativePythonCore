@@ -1,5 +1,5 @@
 {
-  "name": "native-pyrhon-core",
+  "name": "native-python-core",
   "version-string": "1.0.0",
   "description": "A C++ based Python runtime system",
   "dependencies": [
