@@ -11,6 +11,12 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
     ctest
 ```
 
+## Building on Linux ( Ubuntu 24.04 tested )
+
+```
+sudo apt-get install pkg-config autoconf
+```
+
 ## Building on Windows machines
 
 - We need to install cmake, vcpkg and Windows C/C++ compiler
