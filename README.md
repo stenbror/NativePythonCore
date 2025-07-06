@@ -19,5 +19,6 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 - To configure and download needed dependecies and build them
 
     ```
-        cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=C:/Users/stenb/vcpkg/scripts/buildsystems/vcpkg.cmake
+    cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=C:/Users/stenb/vcpkg/scripts/buildsystems/vcpkg.cmake
     ```
+    Replace username with yours. C:\Users\xxxxxx etc.
