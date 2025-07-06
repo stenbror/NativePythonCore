@@ -19,7 +19,13 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   ```
 - Download and install cmake
 - Download and install ninja build system
-- Download and install vcpkg package system for C++
+- Download, build and install vcpkg package system for C++
+  ```
+  cd /home/stenbror # Use your own home directory, not mine.
+  git clone https://github.com/microsoft/vcpkg.git
+  cd vcpkg
+  .\bootstrap-vcpkg.sh
+  ```
 - Setup path to cmake, ninja and vcpkg tools.
 
 ## Building on Windows machines
