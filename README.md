@@ -24,10 +24,20 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
         .\bootstrap-vcpkg.bat
     ```
     Replace my username with yours and make sure path for cmake.exe and vcpkg.exe is set based on where you installed them.
-    
+
+- Create and move to a build directory
+  ```
+  mkdir build
+  cd build
+  ```
 - To configure and download needed dependecies and build them
 
     ```
     cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=C:/Users/stenb/vcpkg/scripts/buildsystems/vcpkg.cmake
     ```
     Replace username with yours. C:\Users\xxxxxx etc.
+- Build project for test
+  ```
+  ninja unit_tests
+  ctest
+  ```
