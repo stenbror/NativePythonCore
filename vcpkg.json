@@ -3,7 +3,7 @@
   "version-string": "1.0.0",
   "description": "A C++ based Python runtime system",
   "dependencies": [
-    "boost",
+    "boost-test",
     "fmt"
   ],
    "builtin-baseline": "4f8fe05871555c1798dbcb1957d0d595e94f7b57"
