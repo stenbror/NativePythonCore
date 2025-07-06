@@ -11,3 +11,13 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
     ctest
 ```
 
+## Building on Windows machines
+
+- We need to install cmake, vcpkg and Windows C/C++ compiler
+
+
+- To configure and download needed dependecies and build them
+
+    ```
+        cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=C:/Users/stenb/vcpkg/scripts/buildsystems/vcpkg.cmake
+    ```
