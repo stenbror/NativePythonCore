@@ -62,3 +62,5 @@ Thumbs.db
 
 # Prosjekt-spesifikke binærfiler
 /bin/
+
+/vcpkg_installed/

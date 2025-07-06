@@ -34,6 +34,7 @@ endif()
 
 # Finn Boost
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+find_package(fmt CONFIG REQUIRED)
 
 # Hovedbiblioteket
 add_library(NativePythonCore SHARED src/library.cpp
@@ -82,6 +83,7 @@ target_link_libraries(unit_tests
         PRIVATE
         NativePythonCore
         Boost::unit_test_framework
+        fmt::fmt
 )
 
 # Legg til test
