@@ -543,4 +543,15 @@ BOOST_AUTO_TEST_CASE(test_operator_end_brace) {
     BOOST_TEST(symbol->GetEndIndex() == 2);
 }
 
+BOOST_AUTO_TEST_CASE(test_operator_dot) {
+    auto lex = new Lexer(u8".", 8);
+    auto symbol = lex->GetNextSymbol();
+
+    BOOST_TEST(symbol->GetSymbolKind() == SymbolType::kw_dot);
+    BOOST_TEST(symbol->GetLine() == 1);
+    BOOST_TEST(symbol->GetColumn() == 1);
+    BOOST_TEST(symbol->GetStartIndex() == 0);
+    BOOST_TEST(symbol->GetEndIndex() == 1);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

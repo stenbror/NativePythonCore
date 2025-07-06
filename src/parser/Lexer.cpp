@@ -418,7 +418,20 @@ void Lexer::CollectSymbols()
                 symbol = SymbolType::kw_end_brace;
                 break;
             }
-
+            case '.':
+            {
+                it = next;
+                auto [codepoint, next] = DecodeUTF8(it, end);
+                if (codepoint <= '0' || codepoint >= '9') {
+                    m_end_index = it - m_source_code.cbegin();
+                    move_index = 1;
+                    symbol = SymbolType::kw_dot;
+                    break;
+                }
+                else {
+                    throw ; // Fix numbers later!
+                }
+            }
 
 
             default:
