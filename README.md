@@ -23,6 +23,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
         cd vcpkg
         .\bootstrap-vcpkg.bat
     ```
+    Replace my username with yours and make sure path for cmake.exe and vcpkg.exe is set based on where you installed them.
     
 - To configure and download needed dependecies and build them
 
