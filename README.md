@@ -2,7 +2,7 @@
 
 This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python 3.15 based runtime system written from ground up in C++.
 
-## Build on Linux and Mac.
+## Build on Mac ( Apple silicon ).
 
 ```
     mkdir -p build
@@ -41,7 +41,17 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   ```
   export PATH="/home/stenbror/cmake-4.1.0-rc1-linux-x86_64/bin/:/home/stenbror/ninja/:/home/stenbror/vcpkg/:$PATH"
   ```
-
+- Build project
+  ```
+  mkdir build
+  cd build
+  cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=/home/stenbror/vcpkg/scripts/buildsystems/vcpkg.cmake
+  ```
+- Execute all unit tests.
+  ```
+  ninja unit_tests
+  ctest
+  ```
 ## Building on Windows machines
 
 - We need to install cmake, vcpkg and Windows C/C++ compiler
