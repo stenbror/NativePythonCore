@@ -13,9 +13,14 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 
 ## Building on Linux ( Ubuntu 24.04 tested )
 
-```
-sudo apt-get install pkg-config autoconf
-```
+- Install Compiler with linker, debugger and some tools needed to get started on an empty Linux machine.
+  ```
+  sudo apt-get install pkg-config autoconf clang lldb git 
+  ```
+- Download and install cmake
+- Download and install ninja build system
+- Download and install vcpkg package system for C++
+- Setup path to cmake, ninja and vcpkg tools.
 
 ## Building on Windows machines
 
