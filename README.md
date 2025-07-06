@@ -14,6 +14,8 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 ## Building on Windows machines
 
 - We need to install cmake, vcpkg and Windows C/C++ compiler
+      -    Download Visual Studio and make sure you install C/C++ development. [Community Edition etc](https://visualstudio.microsoft.com/downloads/)
+      -    Download and install [CMake](https://cmake.org/download/) for your platform and processor.
 
 
 - To configure and download needed dependecies and build them
