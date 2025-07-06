@@ -28,6 +28,11 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   ```
 - Setup path to cmake, ninja and vcpkg tools.
 
+  Make sure you use your own home directory in path and not mine. :-) You modify the *.bashrc* file if you use bash in terminal.
+  ```
+  export PATH="/home/stenbror/cmake-4.1.0-rc1-linux-x86_64/bin/:/home/stenbror/ninja/:/home/stenbror/vcpkg/:$PATH"
+  ```
+
 ## Building on Windows machines
 
 - We need to install cmake, vcpkg and Windows C/C++ compiler
