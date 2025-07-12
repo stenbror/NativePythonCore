@@ -27,6 +27,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   git clone https://github.com/ninja-build/ninja.git && cd ninja
   git checkout release
   cat README.md
+  ./configure.py --bootstrap
   ```
 - Download, build and install vcpkg package system for C++
   ```
