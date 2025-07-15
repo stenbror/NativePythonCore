@@ -4,6 +4,19 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 
 ## Build on Mac ( Apple silicon ).
 
+- First install dependecies through use of brew.
+
+```
+    brew install cmake
+    brew install ninja
+```
+
+- Download and setup vcpkg for mac.
+```
+
+```
+
+- Build binaries and execute unittests.
 ```
     mkdir -p build
     cd build
