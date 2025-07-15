@@ -13,7 +13,10 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 
 - Download and setup vcpkg for mac.
 ```
-
+    cd /home/stenbror # Use your own home directory, not mine.
+    git clone https://github.com/microsoft/vcpkg.git
+    cd vcpkg
+    .\bootstrap-vcpkg.sh
 ```
 
 - Build binaries and execute unittests.
