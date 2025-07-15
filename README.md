@@ -19,11 +19,13 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
     .\bootstrap-vcpkg.sh
 ```
 
+- Add path to vcpkg in file .zprofile in your home directory
+
 - Build binaries and execute unittests.
 ```
     mkdir -p build
     cd build
-    cmake -G Ninja ..
+    cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=/Users/stenbror/vcpkg/scripts/buildsystems/vcpkg.cmake
     ctest
 ```
 
