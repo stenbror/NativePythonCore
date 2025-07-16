@@ -9,6 +9,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 ```
     brew install cmake
     brew install ninja
+    brew install pkg-config
 ```
 
 - Download and setup vcpkg for mac.
@@ -26,6 +27,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
     mkdir -p build
     cd build
     cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=/Users/stenbror/vcpkg/scripts/buildsystems/vcpkg.cmake
+    ninja
     ctest
 ```
 
