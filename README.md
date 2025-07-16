@@ -11,7 +11,7 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   ```
 - Execute image in a terminal windows interactive with your machines project directory as home
   ```
-    podman run -v /Users/stenbror/NativePythonCore:/home/ubuntu -it --rm buildsystem
+    podman run -v /Users/stenbror/NativePythonCore:/home/ubuntu/sourcecode -it --rm buildsystem
   ```
 
   Replace ´/Users/stenbror/NativePythonCore´ with where you checkedout project.
