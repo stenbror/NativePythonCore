@@ -7,12 +7,14 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 - Install docker or podman on yoir machine. I am using podman for this example
 - Build image
   ```
-   podman build .
+    podman build -f buildsystem.Dockerfile --tag buildsystem
   ```
 - Execute image in a terminal windows interactive with your machines project directory as home
   ```
-
+    podman run -v /Users/stenbror/NativePythonCore:/home/ubuntu -it --rm buildsystem
   ```
+
+  Replace ´/Users/stenbror/NativePythonCore´ with where you checkedout project.
 
 ## Build on Mac ( Apple silicon ).
 
