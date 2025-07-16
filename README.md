@@ -5,9 +5,13 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
 ## Build docker image for building with latest C++ compilers and tools
 
 - Install docker or podman on yoir machine. I am using podman for this example
-- Build image
+- Build image for ARM64
   ```
-    podman build -f buildsystem.Dockerfile --tag buildsystem
+    podman build -f buildsystem-arm64.Dockerfile --tag buildsystem
+  ```
+- Build image for X86_64
+  ```
+    podman build -f buildsystem-x86_64.Dockerfile --tag buildsystem
   ```
 - Execute image in a terminal windows interactive with your machines project directory as home
   ```
@@ -15,6 +19,15 @@ This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python
   ```
 
   Replace ´/Users/stenbror/NativePythonCore´ with where you checkedout project.
+
+- Build code and execute tests.
+  ```
+    mkdir -p build
+    cd build
+    cmake -G Ninja .. -DCMAKE_TOOLCHAIN_FILE=/Users/stenbror/vcpkg/scripts/buildsystems/vcpkg.cmake
+    ninja
+    ctest
+  ```
 
 ## Build on Mac ( Apple silicon ).
 
