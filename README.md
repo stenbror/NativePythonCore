@@ -2,6 +2,18 @@
 
 This is the start of a multi plattform ( Windows, Linux and Mac ) minimum Python 3.15 based runtime system written from ground up in C++.
 
+## Build docker image for building with latest C++ compilers and tools
+
+- Install docker or podman on yoir machine. I am using podman for this example
+- Build image
+  ```
+   podman build .
+  ```
+- Execute image in a terminal windows interactive with your machines project directory as home
+  ```
+
+  ```
+
 ## Build on Mac ( Apple silicon ).
 
 - First install dependecies through use of brew.
