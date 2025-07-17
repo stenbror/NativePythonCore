@@ -32,7 +32,18 @@ WORKDIR "/home/ubuntu/vcpkg"
 RUN ./bootstrap-vcpkg.sh
 WORKDIR "/home/ubuntu"
 
-ENV PATH="/usr/lib/llvm-19/bin:/home/ubuntu/bin/:/home/ubuntu/ninja/:/home/ubuntu/vcpkg/:$PATH"
+ENV PATH="/home/ubuntu/llvm-project/bin:/usr/lib/llvm-19/bin:/home/ubuntu/bin/:/home/ubuntu/ninja/:/home/ubuntu/vcpkg/:$PATH"
+
+# Download latest clang and llvm from git repository and build and install for use.
+RUN git clone --depth=1 https://github.com/llvm/llvm-project.git
+WORKDIR "/home/ubuntu/llvm-project"
+RUN mkdir build
+RUN cmake -S llvm -B build -G Ninja -DLLVM_ENABLE_PROJECTS=clang -DCMAKE_BUILD_TYPE=Release
+WORKDIR "/home/ubuntu/llvm-project/build"
+RUN ninja -j 4
+WORKDIR "/home/ubuntu"
+
+ENV PATH="/home/ubuntu/llvm-project/build/bin:$PATH"
 
 RUN mkdir sourcecode
 WORKDIR "/home/ubuntu/sourcecode"
