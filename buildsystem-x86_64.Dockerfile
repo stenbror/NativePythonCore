@@ -21,8 +21,8 @@ ENV CC="/usr/bin/clang"
 
 # Download and install cmake 4.1.0
 RUN wget https://github.com/Kitware/CMake/releases/download/v4.1.0-rc2/cmake-4.1.0-rc2-linux-x86_64.sh
-RUN chmod 777 cmake-4.1.0-rc2-linux-aarch64.sh
-RUN ./cmake-4.1.0-rc2-linux-aarch64.sh --skip-license
+RUN chmod 777 cmake-4.1.0-rc2-linux-x86_64.sh
+RUN ./cmake-4.1.0-rc2-linux-x86_64.sh --skip-license
 
 # Download and build Ninja
 RUN git clone https://github.com/ninja-build/ninja.git
